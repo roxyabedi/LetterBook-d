@@ -1,0 +1,127 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300);
+* {
+  box-sizing: border-box;
+  font-family: "Roboto";
+}
+
+html {
+    background-color: #2C3333;
+    color: white;
+}
+
+
+h1, h2 {
+    text-align: center;
+}
+
+h2 {
+    padding: 10px;
+}
+
+#remove {
+    margin: 10px;
+}
+
+ .item {
+    text-align: center;
+    display: flex;
+}
+
+form {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: fit-content;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.flex-item {
+ padding: 20px;
+ display: inline-block;
+ height: 450px;
+ width: 220px;
+}
+
+img {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin: auto;
+}
+
+p {
+    text-align: center;
+}
+
+.edit {
+    margin: 10px;
+}
+
+.profile {
+    display: flex;
+}
+
+input {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 30%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+    padding-left: 21px;
+  }
+
+#tab {
+    position: absolute;
+    display: none;
+}
+
+label {
+    display: inline-block;
+    font-size: 15px;
+    line-height: 30px;
+    padding: 5px;
+    background: white;
+    color: black;
+}
+
+.add {
+    display: none;
+}
+
+.userProfile {
+    position: absolute;
+    display: none;
+}
+
+.pic {
+    height: 300px;
+    width: 180px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+p.card {
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.rating {
+    text-align: center;
+}

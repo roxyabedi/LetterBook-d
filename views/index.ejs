@@ -1,0 +1,99 @@
+<%- include('partials/header.ejs'); -%>
+
+<div class="box" id="heading">
+    <h1>
+      LetterBook'd
+    </h1>
+  </div>
+
+
+  <div class="profile">
+    <form class="tab-view tab-view-height-auto" action="/user" method="post">
+        <% users.forEach(function(user) { %>
+          <input class="userProfile" type="submit" name="user" value="<%= user.id %>" id="<%= user.id %>">
+          <label for="<%= user.id %>" style="background-color: <%= user.color %>;">
+            <%= user.name %>
+          </label>
+          <% }); %>
+
+
+        <input type="submit" name="add" value="new" id="tab">
+        <label for="tab">Add Profile</label>
+
+  </form>
+</div>
+
+<div class="box">
+<form class="item enter" action="/add" method="post" type="text" autocomplete="off">
+    <input name="book" type="text" placeholder="Enter Book Title"><br>
+    <br><button class="add" name="btn" type="submit">submit</button>
+</form>
+</div>
+ 
+  <h2>
+       List of <%= name %>'s Read Books
+    </h2>
+<div class="container">
+
+<% for(let item of listItems){%>
+
+   
+    <div class="flex-item">
+    <p class="card" id="title<%=item.id%>">
+        <%= item.title %><br>
+        By: <%= item.author_name %><br>
+        Rating: <%= item.rating %>
+        <div class = "rating">
+        <button id="edit<%=item.id%>" class="edit" onclick="handler('<%=item.id%>')"><img class="icon"
+            src="" alt="">Edit Rating</button></div>
+            <form class="edit" action="/edit" method="post" autocomplete="off">
+                <input type="hidden" name="updatedItemId" value="<%= item.id %>">
+                <input class="rating" id="input<%=item.id%>" placeholder="Enter Rating" type="number"  min="1" max="5" name="updatedItemRating" value="<%= item.rating %>" autocomplete="off"
+                  autofocus="true" hidden="true" list="myList"/>
+                  <datalist id="myList">
+                    <option value="1"></option>
+                    <option value="2"></option>
+                    <option value="3"></option>
+                    <option value="4"></option>
+                    <option value="5"></option>
+                 </datalist>
+                 <div class="save">
+                <button id="done<%=item.id%>" class="edit" type="submit" hidden><img class="icon"
+                    src="" alt="">Save</button></div>
+              </form>
+
+      </p>
+      <div class="pic">
+      <img src=<%= item.cover %>
+      /><br>
+      
+        
+        <form class="trash" action="/delete" method="post">
+          <button id="remove" type="checkbox" onchange="this.form.submit()" name="deleteItemId" value="<%= item.id %>"><img class="icon"
+            src="assets/trash.png" alt="X" height="15" width="15"></button>
+        </form>
+      </div>
+    </div>
+
+  
+ 
+   
+
+    
+    <% } %>
+
+</div>
+
+
+
+    
+    
+    <script>
+        function handler(id) {
+        //   document.getElementById("title" + id).setAttribute("hidden", true)
+        //   document.getElementById("edit" + id).setAttribute("hidden", true)
+          document.getElementById("done" + id).removeAttribute("hidden")
+          document.getElementById("input" + id).removeAttribute("hidden")
+        }
+      </script>
+
