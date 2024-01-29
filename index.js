@@ -7,12 +7,20 @@ import axios from "axios";
 const app = express();
 const PORT = process.env.PORT || 3030;
 
+// const db = new pg.Client({
+//   user: "postgres",
+//   host: "localhost",
+//   database: "books",
+//   password: "ScootandRocks",
+//   port: 5432,
+// });
 const db = new pg.Client({
-  user: "postgres",
-  host: "localhost",
-  database: "books",
-  password: "ScootandRocks",
+  user: "books_k90e_user",
+  host: "dpg-clvlgeta73kc73br3r90-a.oregon-postgres.render.com",
+  database: "books_k90e",
+  password: "cGzcQRvOBR5PxnXgjvRE8HBQiIR57QGx",
   port: 5432,
+  ssl: true,
 });
 db.connect();
 
@@ -72,7 +80,7 @@ app.get("/", async (req, res) => {
   listTitle: "List of Read Books",
   listItems: booksToShow,
   users,
-  name: booksToShow[0].name,
+  name: (booksToShow[0] || {}).name,
 });
 
 
