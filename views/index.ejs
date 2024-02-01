@@ -30,9 +30,11 @@
 </form>
 </div>
  
+<% if (name) { %>
   <h2>
        List of <%= name %>'s Read Books
     </h2>
+    <% } %>
 <div class="container">
 
 <% for(let item of listItems){%>
@@ -48,7 +50,7 @@
             src="" alt="">Edit Rating</button></div>
             <form class="edit" action="/edit" method="post" autocomplete="off">
                 <input type="hidden" name="updatedItemId" value="<%= item.id %>">
-                <input class="rating" id="input<%=item.id%>" placeholder="Enter Rating" type="number"  min="1" max="5" name="updatedItemRating" value="<%= item.rating %>" autocomplete="off"
+                <input class="rating" id="input<%=item.id%>" placeholder="Enter Rating" type="number" min="1" max="5" name="updatedItemRating" value="<%= item.rating %>" autocomplete="off"
                   autofocus="true" hidden="true" list="myList"/>
                   <datalist id="myList">
                     <option value="1"></option>

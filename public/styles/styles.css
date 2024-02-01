@@ -65,6 +65,10 @@ p {
     margin: 10px;
 }
 
+button.edit {
+    text-align: center;
+}
+
 .profile {
     display: flex;
 }
@@ -124,4 +128,8 @@ p.card {
 
 .rating {
     text-align: center;
+}
+
+input.rating {
+    width: 50%;
 }

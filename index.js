@@ -7,13 +7,6 @@ import axios from "axios";
 const app = express();
 const PORT = process.env.PORT || 3030;
 
-// const db = new pg.Client({
-//   user: "postgres",
-//   host: "localhost",
-//   database: "books",
-//   password: "ScootandRocks",
-//   port: 5432,
-// });
 const db = new pg.Client({
   user: "books_k90e_user",
   host: "dpg-clvlgeta73kc73br3r90-a.oregon-postgres.render.com",
@@ -81,10 +74,10 @@ app.get("/", async (req, res) => {
   listItems: booksToShow,
   users,
   name: (booksToShow[0] || {}).name,
-});
+})
 
-
-    console.log('okay', book);
+console.log('names', users);
+console.log('okay', book);
 });
 
 app.post("/add", async (req, res) => {
@@ -124,14 +117,15 @@ app.post("/user", async (req, res) => {
 app.post("/new", async (req, res) => {
   const name = req.body.name;
   const color = req.body.color;
+  const id = users.length + 1;
 
   const result = await db.query(
-    "INSERT INTO users (name, color) VALUES($1, $2) RETURNING *;",
-    [name, color]
+    "INSERT INTO users (id, name, color) VALUES($1, $2, $3) RETURNING *;",
+    [id, name, color]
   );
 
-  const id = result.rows[0].id;
-  currentUserId = id;
+  const userId = result.rows[0].id;
+  currentUserId = userId;
 
   res.redirect("/");
 });
