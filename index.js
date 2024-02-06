@@ -31,10 +31,8 @@ async function checkRead() {
     "SELECT * FROM users JOIN booklist ON users.id = user_id WHERE user_id = $1; ",
     [currentUserId]
     );
-    console.log('roxtest', result);
     const userBooks = [];
     result.rows.forEach((bookRow) => {
-      console.log('heyyyyy', bookRow);
       const dataObjReturned = {
         id: bookRow.id,
         title: bookRow.title,
@@ -47,27 +45,23 @@ async function checkRead() {
       }
       userBooks.push(dataObjReturned)
   });
-  console.log('roxy123', userBooks);
   return userBooks;
 }
 
 async function getCurrentUser() {
   const result = await db.query("SELECT * FROM users");
   users = result.rows;
-  console.log('scotttest, currentUserId', currentUserId)
   return users.find((user) => user.id == currentUserId);
 }
 
 app.get("/", async (req, res) => {
     const novels = await checkRead();
 
-    console.log('anyone home?', novels)
     const currentUser = await getCurrentUser();
 
     const result = await db.query("SELECT * FROM booklist ORDER BY id ASC");
     book = result.rows;
     const booksToShow = currentUserId === 0 ? book : novels
-    console.log('what', booksToShow);
 
   res.render("index.ejs", {
   listTitle: "List of Read Books",
@@ -76,8 +70,7 @@ app.get("/", async (req, res) => {
   name: (booksToShow[0] || {}).name,
 })
 
-console.log('names', users);
-console.log('okay', book);
+
 });
 
 app.post("/add", async (req, res) => {
@@ -95,7 +88,6 @@ app.post("/add", async (req, res) => {
       const authors = getBooks.volumeInfo.authors[0];
       const cover = getBooks.volumeInfo.imageLinks.thumbnail;
 
-      console.log({title, authors})
       
 
       await db.query("INSERT INTO booklist (title, author_name, cover, user_id) VALUES ($1, $2, $3, $4)", [title, authors, cover, currentUserId]);
@@ -133,9 +125,7 @@ app.post("/new", async (req, res) => {
 app.post("/edit", async (req, res) => {
   const rating = req.body.updatedItemRating;
   const id = req.body.updatedItemId;
-  console.log('itemupdate', id);
-  console.log(rating);
-  console.log("currentuser123", currentUserId);
+
 
   try {
     await db.query("UPDATE booklist SET rating = ($1) WHERE id = $2 AND user_id = $3", [rating, id, currentUserId]);
@@ -147,8 +137,7 @@ app.post("/edit", async (req, res) => {
 
 app.post("/delete", async (req, res) => {
   const id = req.body.deleteItemId;
-  console.log("deleteuser123", currentUserId);
-  console.log('itemdeleted', id);
+
   try {
     await db.query("DELETE FROM booklist WHERE id = $1 AND user_id = $2", [id, currentUserId]);
     res.redirect("/");
